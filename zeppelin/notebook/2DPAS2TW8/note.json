@@ -1,0 +1,507 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n### Please make sure that you have previously executed [this notebook](/#/notebook/2DQHAR7VK)",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-06 19:45:20.066",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch3\u003ePlease make sure that you have previously executed \u003ca href\u003d\"/#/notebook/2DQHAR7VK\"\u003ethis notebook\u003c/a\u003e\u003c/h3\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1536252000468_1555406807",
+      "id": "20180906-164000_1827361436",
+      "dateCreated": "2018-09-06 16:40:00.468",
+      "dateStarted": "2018-09-06 19:45:20.065",
+      "dateFinished": "2018-09-06 19:45:20.073",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Imports",
+      "text": "import org.apache.spark.sql.types._\r\nimport org.apache.spark.sql.{DataFrame, Row, SparkSession}\r\nimport org.opencypher.spark.api.CAPSSession\r\nimport org.opencypher.spark.api.io.{CAPSNodeTable, CAPSRelationshipTable}\r\nimport scala.collection.JavaConverters._\r\nimport org.opencypher.okapi.api.util.ZeppelinSupport._",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-09 10:35:30.597",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true,
+        "fontSize": 9.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.types._\nimport org.apache.spark.sql.{DataFrame, Row, SparkSession}\nimport org.opencypher.spark.api.CAPSSession\nimport org.opencypher.spark.api.io.{CAPSNodeTable, CAPSRelationshipTable}\nimport scala.collection.JavaConverters._\nimport org.opencypher.okapi.api.util.ZeppelinSupport._\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1534493267098_85534160",
+      "id": "20171017-135422_2642844",
+      "dateCreated": "2018-08-17 08:07:47.098",
+      "dateStarted": "2018-09-09 10:35:30.660",
+      "dateFinished": "2018-09-09 10:35:32.548",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Graph creation",
+      "text": "object SocialNetworkDataFrames {\r\n\tdef nodes(): DataFrame \u003d {\r\n\t\tval nodes \u003d List(\r\n\t\t\tRow(0L, \"Alice\", 42L),\r\n\t\t\tRow(1L, \"Bob\", 23L),\r\n\t\t\tRow(2L, \"Eve\", 84L)\r\n\t\t).asJava\r\n\t\tval nodeSchema \u003d StructType(\r\n\t\t\tList(\r\n\t\t\t\tStructField(\"id\", LongType, false),\r\n\t\t\t\tStructField(\"name\", StringType, false),\r\n\t\t\t\tStructField(\"age\", LongType, false)\r\n\t\t\t)\r\n\t\t)\r\n\t\tspark.createDataFrame(nodes, nodeSchema)\r\n\t}\r\n\r\n\tdef rels(): DataFrame \u003d {\r\n\t\tval rels \u003d List(\r\n\t\t\tRow(0L, 0L, 1L, \"23/01/1987\"),\r\n\t\t\tRow(1L, 1L, 2L, \"12/12/2009\")\r\n\t\t).asJava\r\n\t\tval relSchema \u003d StructType(\r\n\t\t\tList(\r\n\t\t\t\tStructField(\"id\", LongType, false),\r\n\t\t\t\tStructField(\"source\", LongType, false),\r\n\t\t\t\tStructField(\"target\", LongType, false),\r\n\t\t\t\tStructField(\"since\", StringType, false)\r\n\t\t\t)\r\n\t\t)\r\n\t\tspark.createDataFrame(rels, relSchema)\r\n\t}\r\n}",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-09 14:20:35.789",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "title": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true,
+        "fontSize": 9.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "defined object SocialNetworkDataFrames\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1534493267098_800557632",
+      "id": "20171017-135633_1714791996",
+      "dateCreated": "2018-08-17 08:07:47.098",
+      "dateStarted": "2018-09-09 10:35:37.437",
+      "dateFinished": "2018-09-09 10:35:38.743",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Session creation",
+      "text": "val session \u003d CAPSSession.local()\n//val session \u003d CAPSSession.create(spark)",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-12 10:37:22.064",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "session: org.opencypher.spark.api.CAPSSession \u003d CAPSSessionImpl\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1534494801969_-1257425101",
+      "id": "20180817-083321_751762198",
+      "dateCreated": "2018-08-17 08:33:21.969",
+      "dateStarted": "2018-09-12 10:37:22.103",
+      "dateFinished": "2018-09-12 10:37:22.646",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": " Generate some DataFrames that we\u0027d like to interpret as a property graph",
+      "text": "val nodesDF \u003d SocialNetworkDataFrames.nodes()\r\nval relsDF \u003d SocialNetworkDataFrames.rels()",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-12 10:37:24.592",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "nodesDF: org.apache.spark.sql.DataFrame \u003d [id: bigint, name: string ... 1 more field]\nrelsDF: org.apache.spark.sql.DataFrame \u003d [id: bigint, source: bigint ... 2 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1534494829186_-956647579",
+      "id": "20180817-083349_2045069279",
+      "dateCreated": "2018-08-17 08:33:49.186",
+      "dateStarted": "2018-09-12 10:37:24.627",
+      "dateFinished": "2018-09-12 10:37:25.638",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Generate node and relationship tables that wrap the DataFrames. The mapping between graph entities and columns is derived using naming conventions for identifier columns",
+      "text": "val personTable \u003d CAPSNodeTable(Set(\"Person\"), nodesDF)\r\nval friendsTable \u003d CAPSRelationshipTable(\"KNOWS\", relsDF)",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-12 10:37:26.704",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "personTable: org.opencypher.spark.api.io.CAPSNodeTable \u003d CAPSNodeTable(NodeMapping(id,Set(Person),Map(),Map(name -\u003e name, age -\u003e age)),org.opencypher.spark.impl.table.SparkTable$DataFrameTable@62058ad0)\nfriendsTable: org.opencypher.spark.api.io.CAPSRelationshipTable \u003d CAPSRelationshipTable(RelationshipMapping(id,source,target,Left(KNOWS),Map(since -\u003e since)),org.opencypher.spark.impl.table.SparkTable$DataFrameTable@7f687602)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1534494843099_-1271313910",
+      "id": "20180817-083403_787301514",
+      "dateCreated": "2018-08-17 08:34:03.100",
+      "dateStarted": "2018-09-12 10:37:26.742",
+      "dateFinished": "2018-09-12 10:37:27.563",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Create property graph",
+      "text": "val graph \u003d session.readFrom(personTable, friendsTable)",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-12 10:37:30.088",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "graph: org.opencypher.okapi.api.graph.PropertyGraph \u003d ScanGraph(NODE(:Person), RELATIONSHIP(:KNOWS))\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1534494863689_-403653280",
+      "id": "20180817-083423_348823599",
+      "dateCreated": "2018-08-17 08:34:23.689",
+      "dateStarted": "2018-09-12 10:37:30.120",
+      "dateFinished": "2018-09-12 10:37:31.491",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Execute Cypher query over the CAPS graph and display the result",
+      "text": "val result \u003d graph.cypher(\"MATCH (n:Person) RETURN n.name\")\nresult.records.collect.map(_ (\"n.name\").as[String]).foreach{name \u003d\u003e println(s\"Name: ${name.get}\")}",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-12 10:37:32.512",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "result: org.opencypher.okapi.api.graph.CypherResult \u003d RelationalCypherResult(Some(Select(orderedFields\u003dList(n.name :: STRING), solved\u003dSolvedQueryModel(Set(n :: NODE @ session.tmp#1, n.name :: STRING),Set(n:Person :: BOOLEAN)))),Some(Select(expressions\u003dList(n.name :: STRING))))\nName: Alice\nName: Bob\nName: Eve\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1534494854938_1083144632",
+      "id": "20180817-083414_1490558176",
+      "dateCreated": "2018-08-17 08:34:14.938",
+      "dateStarted": "2018-09-12 10:37:32.570",
+      "dateFinished": "2018-09-12 10:37:39.875",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Visaulize the graph directly from CAPS",
+      "text": "graph.printGraph",
+      "user": "anonymous",
+      "dateUpdated": "2018-09-17 09:40:33.659",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "title": true,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "network",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "network": {
+                  "properties": {
+                    "Person": {
+                      "selected": "name",
+                      "keys": [
+                        "age",
+                        "name",
+                        "id",
+                        "label"
+                      ]
+                    }
+                  },
+                  "d3Graph": {
+                    "forceLayout": {
+                      "timeout": 10000.0,
+                      "charge": -120.0,
+                      "linkDistance": 80.0
+                    },
+                    "zoom": {
+                      "minScale": 1.3
+                    }
+                  }
+                },
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "id": "string",
+                      "label": "string",
+                      "age": "string",
+                      "name": "string",
+                      "since": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "label",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "label",
+                  "index": 1.0,
+                  "aggr": "count"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true,
+        "fontSize": 9.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\n"
+          },
+          {
+            "type": "NETWORK",
+            "data": "{\n  \"directed\": true,\n  \"labels\": {\n    \"Person\": \"#cbfe79\"\n  },\n  \"nodes\": [\n    {\n      \"id\": \"0\",\n      \"label\": \"Person\",\n      \"labels\": [\n        \"Person\"\n      ],\n      \"data\": {\n        \"age\": \"42\",\n        \"name\": \"Alice\"\n      }\n    },\n    {\n      \"id\": \"1\",\n      \"label\": \"Person\",\n      \"labels\": [\n        \"Person\"\n      ],\n      \"data\": {\n        \"age\": \"23\",\n        \"name\": \"Bob\"\n      }\n    },\n    {\n      \"id\": \"2\",\n      \"label\": \"Person\",\n      \"labels\": [\n        \"Person\"\n      ],\n      \"data\": {\n        \"age\": \"84\",\n        \"name\": \"Eve\"\n      }\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"0\",\n      \"source\": \"0\",\n      \"target\": \"1\",\n      \"label\": \"KNOWS\",\n      \"data\": {\n        \"since\": \"23/01/1987\"\n      }\n    },\n    {\n      \"id\": \"1\",\n      \"source\": \"1\",\n      \"target\": \"2\",\n      \"label\": \"KNOWS\",\n      \"data\": {\n        \"since\": \"12/12/2009\"\n      }\n    }\n  ],\n  \"types\": [\n    \"KNOWS\"\n  ]\n}\n        "
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1534493267100_14577526",
+      "id": "20171017-141658_922492815",
+      "dateCreated": "2018-08-17 08:07:47.100",
+      "dateStarted": "2018-09-12 10:38:00.121",
+      "dateFinished": "2018-09-12 10:38:01.555",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "dateUpdated": "2018-08-17 08:07:47.101",
+      "config": {
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "results": {},
+        "enabled": true,
+        "editorSetting": {
+          "language": "scala"
+        }
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1534493267101_1323006681",
+      "id": "20171017-143658_1085306660",
+      "dateCreated": "2018-08-17 08:07:47.101",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Graph Connect 2018/CAPS Single",
+  "id": "2DPAS2TW8",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "neo4j:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {}
+}
